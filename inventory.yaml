@@ -1,0 +1,12 @@
+ubuntu_server ansible_host=172.31.91.145 
+centOS_Server ansible_host=172.31.81.97 
+
+[web]
+ubuntu_server  
+centOS_Server 
+
+[web:vars]
+
+ansible_private_key_file=node.pem
+ansible_user=ansible
+

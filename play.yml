@@ -1,0 +1,7 @@
+---
+- name: host a website on Ubuntu and CentOS servers
+  become: yes
+  hosts: web
+  roles: 
+    - install
+    - configure

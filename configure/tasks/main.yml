@@ -1,0 +1,20 @@
+---
+# tasks to clone and copy web files to apache/htttpd
+- name: cloning git repository
+  ansible.builtin.git:
+    repo: "{{ github_repo }}"
+    dest: "{{cloned_path}}"
+  
+
+- name: copying html and css files into webserver directory
+  copy:
+    src: "{{ cloned_path }}/"
+    dest: "{{ server_path }}"
+    
+    remote_src: yes
+
+- name: deleting cloned repository
+  ansible.builtin.file:
+    path: "{{ cloned_path }}"
+    state: absent
+

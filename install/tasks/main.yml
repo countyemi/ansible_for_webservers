@@ -1,0 +1,40 @@
+---
+# tasks to install git and apache/httpd
+- name: updating apt cache on ubuntu
+  ansible.builtin.apt:
+    update_cache: yes
+  when: ansible_distribution == "Ubuntu"
+
+- name: Installing git and apache on ubuntu
+  ansible.builtin.apt:
+    name: "{{item}}"
+    state: present
+  loop:
+    - git
+    - apache2
+  when: ansible_distribution == "Ubuntu"
+
+- name: updating  yum on CentOs
+  ansible.builtin.yum:
+    name: yum
+    state: latest
+  when: ansible_distribution == "RedHat" || ansible_distribution == 'CentOS'
+
+- name: Installing git and httpd on CentOS
+  ansible.builtin.yum:
+    name: "{{item}}"
+    state: present
+  loop:
+    - git
+    - httpd
+  when: ansible_distribution == "RedHat" || ansible_distribution == 'CentOS'
+
+- name: enable and start httpd on CentOS
+  ansible.builtin.service:
+    name: httpd
+    enabled: yes
+    state: started
+  when: ansible_distribution == "RedHat" || ansible_distribution == 'CentOS'
+
+
+
